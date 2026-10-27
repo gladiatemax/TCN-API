@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+"""Avvio della CLI del nodo centrale.
+
+Trova il package `tcn` accanto a questo script o un livello sopra, cosi'
+funziona sia dalla radice del progetto sia da dentro il package.
+"""
+
+import os
+import sys
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+for _candidate in (_HERE, os.path.dirname(_HERE)):
+    if os.path.isfile(os.path.join(_candidate, 'tcn', '__init__.py')):
+        sys.path.insert(0, _candidate)
+        break
+else:
+    sys.exit(
+        'package `tcn` non trovato.\n'
+        f'Cercato in {_HERE} e nella directory superiore.')
+
+from tcn.cli import main  # noqa: E402
+
+if __name__ == '__main__':
+    sys.exit(main())
